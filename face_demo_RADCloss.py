@@ -96,8 +96,8 @@ def main(args):
             color_vars = list(color_vars.values())
 
             # Optimize piont:0.1-1.0 color: 0.01
-            points_optim = torch.optim.Adam(points_vars, lr=0.10)  
-            color_optim = torch.optim.Adam(color_vars, lr=0.02)  
+            points_optim = torch.optim.Adam(points_vars, lr=0.15)  
+            color_optim = torch.optim.Adam(color_vars, lr=0.025)  
 
             
             with torch.no_grad():
