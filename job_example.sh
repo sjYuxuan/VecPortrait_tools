@@ -3,13 +3,12 @@
 # Common arguments to all steps
 im_size='256'
 content_path='face/1.jpg'
-style_path='imgs/man1.png'
+style_path='imgs/1.png'
 
 # 1. Run NBB to get correspondences
 results_dir='example/NBBresults'
 python NBB/main.py --results_dir ${results_dir} --imageSize ${im_size} --fast \
   --datarootA ${content_path} --datarootB ${style_path}
-
 
 # 2. Clean (NBB) points
 content_pts_path='example/NBBresults/correspondence_A.txt'
@@ -26,4 +25,4 @@ python cleanpoints.py ${content_path} ${style_path} ${content_pts_path} \
 
 
 # 3. Run V_P-demo
-python face_demo(RADCloss).py
+python face_demo_RADCloss.py
