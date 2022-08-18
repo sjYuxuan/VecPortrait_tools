@@ -30,7 +30,7 @@ def clip_normalize(image, device):
 def main(args):
     for svgnum in range(1):
         svgnum = svgnum + 1
-        svg_path = args.svg + "img" + str(svgnum) + ".svg"
+        svg_path = args.svg  + str(svgnum) + ".svg"
         facenames = os.listdir(args.target)
         savepath = args.results_path + "img" + str(svgnum) + "/"
         for facenum in range(1):
@@ -78,7 +78,7 @@ def main(args):
                          None,  # bg
                          *scene_args)  
             # The output image is in linear RGB space. Do Gamma correction before saving the image.
-            pydiffvg.imwrite(img.cpu(), results_path + 'gogh1.png', gamma=gamma)  
+            pydiffvg.imwrite(img.cpu(), results_path + 'init.png', gamma=gamma)  
 
             
 
@@ -96,8 +96,8 @@ def main(args):
             color_vars = list(color_vars.values())
 
             # Optimize piont:0.1-1.0 color: 0.01
-            points_optim = torch.optim.Adam(points_vars, lr=0.15)  
-            color_optim = torch.optim.Adam(color_vars, lr=0.00)  
+            points_optim = torch.optim.Adam(points_vars, lr=0.10)  
+            color_optim = torch.optim.Adam(color_vars, lr=0.02)  
 
             
             with torch.no_grad():
@@ -106,17 +106,17 @@ def main(args):
                 target_img = cv2.cvtColor(target_img, cv2.COLOR_BGR2RGB)
                 target_img1 = target_img.transpose(2, 0, 1)   # hwc--chw
 
-                init_img0 = cv2.imread(results_path + 'gogh1.png')
+                init_img0 = cv2.imread(results_path + 'init.png')
                 init_img0 = cv2.cvtColor(init_img0, cv2.COLOR_BGR2RGB)
                 init_img0 = init_img0.transpose(2, 0, 1)  # hwc--chw
 
                 init_pro = []  
                 img_proc4 = []  
                 img_proc2 = []  
-                for n in range(64):
-                    b = 200
-                    content_pts_path = '/home/zyx/PycharmProjects/clipimg/clipvg/apps/NBB/example1/CleanedPts/correspondence_A.txt'
-                    style_pts_path = '/home/zyx/PycharmProjects/clipimg/clipvg/apps/NBB/example1/CleanedPts/correspondence_B.txt'
+                for n in range(84):
+                    b = 100
+                    content_pts_path = '/content/VecPortrait_tools/example/CleanedPts/correspondence_A.txt'
+                    style_pts_path = '/content/VecPortrait_tools/example/CleanedPts/correspondence_B.txt'
                     A_corres = np.loadtxt(content_pts_path, delimiter=',')
                     B_corres = np.loadtxt(style_pts_path, delimiter=',')
                     A_height = target_img1.shape[1]
@@ -228,7 +228,7 @@ def main(args):
                 "------------global clip loss -----------"
 
                 img_proc = []  
-                for n in range(64):
+                for n in range(84):
                     cur_img = img3[:, init_pro[n][2]:init_pro[n][3], init_pro[n][0]:init_pro[n][1]]
                     cur_img = resizer(cur_img)
                     cur_img = cur_img.unsqueeze(0)
@@ -306,11 +306,11 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--svg", help="source SVG path", default="/home/zyx/PycharmProjects/clipimg/clipvg/apps/imgs/")
+    parser.add_argument("--svg", help="source SVG path", default="/content/VecPortrait_tools/imgs/")
     parser.add_argument("--target", help="target image path",
-                        default="/home/zyx/PycharmProjects/clipimg/clipvg/apps/face/peterbody/")
+                        default="/content/VecPortrait_tools/face/")
     parser.add_argument("--results_path", help="save image path",
-                        default="/home/zyx/PycharmProjects/clipimg/clipvg/apps/result_peterbody/")
+                        default="/content/VecPortrait_tools/result/")
     parser.add_argument("--num_iter", type=int, default=261)
     parser.add_argument('--img_size', type=int, default=512, help='size of images')
     parser.add_argument('--crop_size', type=int, default=400, help='size of images')
