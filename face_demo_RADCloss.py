@@ -115,8 +115,8 @@ def main(args):
                 img_proc2 = []  
                 for n in range(84):
                     b = 200
-                    content_pts_path = '/content/VecPortrait_tools/example/CleanedPts/correspondence_A.txt'
-                    style_pts_path = '/content/VecPortrait_tools/example/CleanedPts/correspondence_B.txt'
+                    content_pts_path = '/content/diffvg/VecPortrait_tools/example/CleanedPts/correspondence_A.txt'
+                    style_pts_path = '/content/diffvg/VecPortrait_tools/example/CleanedPts/correspondence_B.txt'
                     A_corres = np.loadtxt(content_pts_path, delimiter=',')
                     B_corres = np.loadtxt(style_pts_path, delimiter=',')
                     A_height = target_img1.shape[1]
@@ -306,11 +306,11 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--svg", help="source SVG path", default="/content/VecPortrait_tools/imgs/")
+    parser.add_argument("--svg", help="source SVG path", default="/content/diffvg/VecPortrait_tools/imgs/")
     parser.add_argument("--target", help="target image path",
-                        default="/content/VecPortrait_tools/face/")
+                        default="/content/diffvg/VecPortrait_tools/face/")
     parser.add_argument("--results_path", help="save image path",
-                        default="/content/VecPortrait_tools/result/")
+                        default="/content/diffvg/VecPortrait_tools/result/")
     parser.add_argument("--num_iter", type=int, default=161)
     parser.add_argument('--img_size', type=int, default=512, help='size of images')
     parser.add_argument('--crop_size', type=int, default=400, help='size of images')
