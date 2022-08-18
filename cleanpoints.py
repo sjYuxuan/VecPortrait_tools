@@ -103,12 +103,12 @@ if NBB:
         plt.savefig(output_path + '/B_all_correspondence.png', bbox_inches='tight', pad_inches=-0.1)
         plt.close()
 
-    # Remove points with activations less than 1
-    lowactv = np.where(activations < 1)
-    A_corres = np.delete(A_corres, lowactv, axis=0)
-    B_corres = np.delete(B_corres, lowactv, axis=0)
-    activations = np.delete(activations, lowactv, axis=0)
-    print('\n{} points removed because their activations were less than 1 (NBB-specific processing)'.format(lowactv[0].shape[0]))
+#     # Remove points with activations less than 1
+#     lowactv = np.where(activations < 1)
+#     A_corres = np.delete(A_corres, lowactv, axis=0)
+#     B_corres = np.delete(B_corres, lowactv, axis=0)
+#     activations = np.delete(activations, lowactv, axis=0)
+#     print('\n{} points removed because their activations were less than 1 (NBB-specific processing)'.format(lowactv[0].shape[0]))
 
     # Select n points in a greedy way
     A_selected = np.zeros((max_num_points, 2), dtype=np.int32)
