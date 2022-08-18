@@ -114,7 +114,7 @@ def main(args):
                 img_proc4 = []  
                 img_proc2 = []  
                 for n in range(84):
-                    b = 100
+                    b = 200
                     content_pts_path = '/content/VecPortrait_tools/example/CleanedPts/correspondence_A.txt'
                     style_pts_path = '/content/VecPortrait_tools/example/CleanedPts/correspondence_B.txt'
                     A_corres = np.loadtxt(content_pts_path, delimiter=',')
@@ -140,9 +140,9 @@ def main(args):
                     B.append(Brright)
                     init_pro.append(B)
                     target_imag1 = target_img1[:, Arleft:Arright, Acleft:Acright]
-                    tar_img1 = torch.from_numpy(target_imag1).cuda()
+                    tar_img1 = torch.from_numpy(target_imag1).cuda()/255.
                     tar_img1 = resizer(tar_img1).unsqueeze(0)
-                    init_svg = torch.from_numpy(init_img0[:, Brleft:Brright, Bcleft:Bcright]).cuda()
+                    init_svg = torch.from_numpy(init_img0[:, Brleft:Brright, Bcleft:Bcright]).cuda()/255.
                     init_svg = resizer(init_svg).unsqueeze(0)
 
                     # imgaug = tar_img1.clone().squeeze(0).cpu().numpy()
@@ -311,7 +311,7 @@ if __name__ == "__main__":
                         default="/content/VecPortrait_tools/face/")
     parser.add_argument("--results_path", help="save image path",
                         default="/content/VecPortrait_tools/result/")
-    parser.add_argument("--num_iter", type=int, default=261)
+    parser.add_argument("--num_iter", type=int, default=161)
     parser.add_argument('--img_size', type=int, default=512, help='size of images')
     parser.add_argument('--crop_size', type=int, default=400, help='size of images')
     parser.add_argument('--lr', type=float, default=5e-4, )
