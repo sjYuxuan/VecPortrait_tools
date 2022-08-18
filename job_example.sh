@@ -17,8 +17,8 @@ style_pts_path='example/NBBresults/correspondence_B.txt'
 activation_path='example/NBBresults/correspondence_activation.txt'
 output_path='example/CleanedPts'
 NBB='1'
-max_num_points='80'
-b='10'
+max_num_points='256'
+b='5'
 
 python cleanpoints.py ${content_path} ${style_path} ${content_pts_path} \
   ${style_pts_path} ${activation_path} ${output_path} \
